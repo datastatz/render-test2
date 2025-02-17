@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'; // Importing state and effect
 import axios from 'axios'; // Importing Axios for using the JSON Server
 import React from 'react'; // Obviously importing React
 
-const baseUrl = 'http://localhost:3000/api/persons'
+const baseUrl = '/api/persons'
 
 
 // Component that filters and that takes two props searchTerm and handleSearchChange
@@ -56,7 +56,7 @@ const App = () => {
 
   // Fetches the initial data from the phonebook only ones when starting the App, 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/persons').then((response) => {
+    axios.get(baseUrl).then((response) => {
       setPersons(response.data);
     });
   }, []);
@@ -102,7 +102,7 @@ const App = () => {
           const updatedPerson = { ...existingPerson, number: newNumber };
     
           axios
-            .put(`http://localhost:3000/api/persons/${existingPerson.id}`, updatedPerson)
+            .put(`${baseUrl}/${existingPerson.id}`, updatedPerson)
             .then((response) => {
               // Update the local state with the updated person
               setPersons(
@@ -127,7 +127,7 @@ const App = () => {
       const personObject = { name: newName, number: newNumber};
     
       axios
-        .post('http://localhost:3000/api/persons', personObject)
+        .post(baseUrl, personObject)
         .then((response) => {
           setPersons([...persons, response.data]);
           setNewName('');
@@ -145,7 +145,7 @@ const App = () => {
   const deletePerson = (id) => {
     const person = persons.find((p) => p.id === id);
     if (window.confirm(`Delete ${person.name}?`)) {
-      axios.delete(`http://localhost:3000/api/persons/${id}`).then(() => {
+      axios.delete(`${baseUrl}/${id}`).then(() => {
         setPersons(persons.filter((p) => p.id !== id));
       });
     }
