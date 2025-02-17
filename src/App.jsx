@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'; // Importing state and effect
 import axios from 'axios'; // Importing Axios for using the JSON Server
 import React from 'react'; // Obviously importing React
 
+const baseUrl = 'http://localhost:3000/api/persons'
+
+
 // Component that filters and that takes two props searchTerm and handleSearchChange
 const Filter = ({ searchTerm, handleSearchChange }) => {
   return (
@@ -53,7 +56,7 @@ const App = () => {
 
   // Fetches the initial data from the phonebook only ones when starting the App, 
   useEffect(() => {
-    axios.get('http://localhost:3001/persons').then((response) => {
+    axios.get('http://localhost:3000/api/persons').then((response) => {
       setPersons(response.data);
     });
   }, []);
@@ -99,7 +102,7 @@ const App = () => {
           const updatedPerson = { ...existingPerson, number: newNumber };
     
           axios
-            .put(`http://localhost:3001/persons/${existingPerson.id}`, updatedPerson)
+            .put(`http://localhost:3000/api/persons/${existingPerson.id}`, updatedPerson)
             .then((response) => {
               // Update the local state with the updated person
               setPersons(
@@ -121,10 +124,10 @@ const App = () => {
       }
     
       // If the person doesn't already exist, create a new one
-      const personObject = { name: newName, number: newNumber, id: Date.now() };
+      const personObject = { name: newName, number: newNumber};
     
       axios
-        .post('http://localhost:3001/persons', personObject)
+        .post('http://localhost:3000/api/persons', personObject)
         .then((response) => {
           setPersons([...persons, response.data]);
           setNewName('');
@@ -142,7 +145,7 @@ const App = () => {
   const deletePerson = (id) => {
     const person = persons.find((p) => p.id === id);
     if (window.confirm(`Delete ${person.name}?`)) {
-      axios.delete(`http://localhost:3001/persons/${id}`).then(() => {
+      axios.delete(`http://localhost:3000/api/persons/${id}`).then(() => {
         setPersons(persons.filter((p) => p.id !== id));
       });
     }
