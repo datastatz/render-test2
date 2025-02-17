@@ -1,0 +1,28 @@
+h2 {
+    color:green;
+    font-style: italic;
+}
+
+.list {
+    color: red;
+    padding-top: 3px;
+    font-size: 15px;
+    font-style: italic;
+}
+
+.success {
+    color: green;
+    background-color: #ccffcc;
+    border: 2px solid green;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .error {
+    color: red;
+    background-color: #ffcccc;
+    border: 2px solid red;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
